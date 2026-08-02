@@ -1,0 +1,40 @@
+using TMPro;
+using UnityEngine;
+
+/*
+* Display a text message that disappears after a set period of time
+*/
+
+public class MessageController : MonoBehaviour
+{
+    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private float displayTime = 2f;
+    
+    private bool isDisplaying;
+    private float timer;
+
+    private void Start()
+    {
+        isDisplaying = false; 
+        text.text = ""; 
+    }
+
+    public void DisplayMessage(string message)
+    {
+        text.text = message;
+        isDisplaying = true;
+        timer = 0f;
+    }
+
+    private void Update()
+    {
+        if (!isDisplaying) return;
+
+        timer += Time.deltaTime;
+        if (timer >= displayTime)
+        {
+            text.text = "";
+            isDisplaying = false; 
+        }
+    }
+}
